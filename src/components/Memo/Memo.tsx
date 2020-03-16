@@ -11,7 +11,10 @@ const Memo = () => {
   return (
     <div>
       <button
-        onClick={handleAdd}>add</button>
+        onClick={handleAdd}
+      >
+          add
+      </button>
       <Foo />
       {count}
     </div>
