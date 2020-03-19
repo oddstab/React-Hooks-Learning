@@ -140,32 +140,76 @@ const TodoList = () => {
   //新增todo
   const addTodo = useCallback((todo: ITodo) => {
     //設置成一個新的todos
-    setTodos(todos => [...todos, todo])
+    dispatch({
+      type: 'add',
+      payload: todo
+    })
   }, []);
 
   //刪除todo
   const removeTodo = useCallback((id: number) => {
     //過濾todos,傳回除了跟id符合以外的所有todo
-    setTodos(todos => todos.filter(todo => {
-      return todo.id !== id;
-    }));
+    dispatch({
+      type: 'remove',
+      payload: id
+    })
   }, []);
 
   //切換完成狀態
   const toggleTodo = useCallback((id: number) => {
     //判斷是否已經完成，把completed取反
-    setTodos(todos => todos.map(todo => {
-      return todo.id === id
-        ?
-        {
-          ...todo,
-          completed: !todo.completed
-        }
-        :
-        todo;
-    }))
+    dispatch({
+      type: 'toggle',
+      payload: id
+    })
   }, []);
 
+  type ActionType = 'set' | 'add' | 'remove' | 'toggle';
+
+  type DispatchType = {
+    type: ActionType;
+    payload?: any;
+  }
+
+  const dispatch = (action: DispatchType) => {
+
+    const {
+      type,
+      payload
+    } = action;
+
+    switch (type) {
+      //設置
+      case 'set':
+        setTodos(payload)
+        break;
+      //新增
+      case 'add':
+        setTodos(todos => [...todos, payload])
+        break;
+      //刪除
+      case 'remove':
+        setTodos(todos => todos.filter(todo => {
+          return todo.id !== payload;
+        }));
+        break;
+      //切換
+      case 'toggle':
+        setTodos(todos => todos.map(todo => {
+          return todo.id === payload
+            ?
+            {
+              ...todo,
+              completed: !todo.completed
+            }
+            :
+            todo;
+        }))
+        break;
+      default:
+        return
+    }
+  }
 
   useEffect(() => {
     //從localStorage取值或給預設值[]
