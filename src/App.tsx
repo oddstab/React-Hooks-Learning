@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
+import TodoList from './components/WithoutRedux/TodoList';
+// import Effect from './components/Effect/Effect';
+// import CustomHooks from './components/CustomHooks';
 // import Context from './components/Context/Context';
 // import LazyWithSuspense from './components/LazyWithSuspense/LazyWithSuspense'
-import Memo from './components/Memo/Memo'
+// import Memo from './components/Memo/Memo'
+// import State from './components/State/'
+
 const App = () => {
   //useState只會執行一次
-  const [count, setCount] = useState(() => {
-    console.log("init");
-    return 0;
-  });
-  console.log("render");
   return (
     <>
 
@@ -21,10 +21,18 @@ const App = () => {
 
       {/* 純粹組件 */}
       {/* <Memo /> */}
-      {count}
-      <button onClick={() => {
-        setCount(count + 1)
-      }}>add</button>
+
+      {/* useState */}
+      {/* <State /> */}
+
+      {/* useEffect */}
+      {/* <Effect /> */}
+
+      {/* 自定義Hooks */}
+      {/* <CustomHooks /> */}
+
+      {/* 自己做Redux */}
+      <TodoList />
     </>
   )
 }
